@@ -68,7 +68,7 @@
         # Convert to GluonTS arrow format
         convert_to_arrow("./noise-data.arrow", time_series=time_series)
     ```
-- Modify the [training configs](training/configs) to use your data. Let's use the KernelSynth data as an example.
+- Modify the [training configs](scripts/training/configs) to use your data. Let's use the KernelSynth data as an example.
     ```yaml
     # List of training data files
     training_data_paths:
@@ -147,7 +147,7 @@ Follow these steps to compute the WQL and MASE values for the in-domain and zero
 
 
     result_df = pd.read_csv("evaluation/results/chronos-t5-small-in-domain.csv").set_index("dataset")
-    baseline_df = pd.read_csv("evaluation/results/seasonal-naive-in-domain.csv").set_index("dataset")
+    baseline_df = pd.read_csv("scripts/evaluation/results/seasonal-naive-in-domain.csv").set_index("dataset")
 
     agg_score_df = agg_relative_score(result_df, baseline_df)
     ```
