@@ -1,3 +1,6 @@
+Adapted from https://github.com/amazon-science/chronos-forecasting/tree/main/scripts
+
+---
 # Usage Examples
 
 ## Generating Synthetic Time Series (KernelSynth)
