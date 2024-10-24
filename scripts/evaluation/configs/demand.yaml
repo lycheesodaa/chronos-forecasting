@@ -1,0 +1,65 @@
+# Backtest configs for a custom demand dataset
+
+# For testing purposes
+#- name: demand_data_all_cleaned_numerical.csv
+#  hf_repo: data/
+#  offset: 12275
+#  prediction_length: 1
+#  num_rolls: 20
+#  distance: 1
+#- name: demand_data_all_cleaned_numerical.csv
+#  hf_repo: data/
+#  offset: 12275
+#  prediction_length: 12
+#  num_rolls: 20
+#  distance: 1
+#- name: demand_data_all_cleaned_numerical.csv
+#  hf_repo: data/
+#  offset: 12275
+#  prediction_length: 72
+#  num_rolls: 20
+#  distance: 1
+
+# Actual
+- name: demand_data_all_cleaned_numerical.csv
+  hf_repo: data/
+  offset: 12273
+  prediction_length: 1
+  num_rolls: 12272
+  distance: 1
+- name: demand_data_all_cleaned_numerical.csv
+  hf_repo: data/
+  offset: 12273
+  prediction_length: 12
+  num_rolls: 12261
+  distance: 1
+#- name: demand_data_all_cleaned_numerical.csv
+#  hf_repo: data/
+#  offset: 12273
+#  prediction_length: 24
+#  num_rolls: 12249
+#  distance: 1
+#- name: demand_data_all_cleaned_numerical.csv
+#  hf_repo: data/
+#  offset: 12273
+#  prediction_length: 36
+#  num_rolls: 12237
+#  distance: 1
+#- name: demand_data_all_cleaned_numerical.csv
+#  hf_repo: data/
+#  offset: 12273
+#  prediction_length: 48
+#  num_rolls: 12225
+#  distance: 1
+#- name: demand_data_all_cleaned_numerical.csv
+#  hf_repo: data/
+#  offset: 12273
+#  prediction_length: 60
+#  num_rolls: 12213
+#  distance: 1
+- name: demand_data_all_cleaned_numerical.csv
+  hf_repo: data/
+  offset: 12273
+  prediction_length: 72
+  num_rolls: 12201
+  distance: 1

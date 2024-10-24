@@ -1,0 +1,65 @@
+# Backtest configs for a custom demand dataset
+
+# For testing purposes
+#- name: demand_data_all_nsw_numerical.csv
+#  hf_repo: data/
+#  offset: 12275
+#  prediction_length: 1
+#  num_rolls: 20
+#  distance: 1
+#- name: demand_data_all_nsw_numerical.csv
+#  hf_repo: data/
+#  offset: 12275
+#  prediction_length: 12
+#  num_rolls: 20
+#  distance: 1
+#- name: demand_data_all_nsw_numerical.csv
+#  hf_repo: data/
+#  offset: 12275
+#  prediction_length: 72
+#  num_rolls: 20
+#  distance: 1
+
+# Actual
+- name: demand_data_all_nsw_numerical.csv
+  hf_repo: data/
+  offset: 15777
+  prediction_length: 1
+  num_rolls: 15776
+  distance: 1
+- name: demand_data_all_nsw_numerical.csv
+  hf_repo: data/
+  offset: 15777
+  prediction_length: 12
+  num_rolls: 15765
+  distance: 1
+- name: demand_data_all_nsw_numerical.csv
+  hf_repo: data/
+  offset: 15777
+  prediction_length: 24
+  num_rolls: 15753
+  distance: 1
+- name: demand_data_all_nsw_numerical.csv
+  hf_repo: data/
+  offset: 15777
+  prediction_length: 36
+  num_rolls: 15741
+  distance: 1
+- name: demand_data_all_nsw_numerical.csv
+  hf_repo: data/
+  offset: 15777
+  prediction_length: 48
+  num_rolls: 15729
+  distance: 1
+- name: demand_data_all_nsw_numerical.csv
+  hf_repo: data/
+  offset: 15777
+  prediction_length: 60
+  num_rolls: 15717
+  distance: 1
+- name: demand_data_all_nsw_numerical.csv
+  hf_repo: data/
+  offset: 15777
+  prediction_length: 72
+  num_rolls: 15705
+  distance: 1

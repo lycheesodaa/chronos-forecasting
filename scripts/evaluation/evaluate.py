@@ -1,6 +1,7 @@
 import logging
+import os
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Iterable, Optional, List
 
 import datasets
 import numpy as np
@@ -202,6 +203,25 @@ def to_gluonts_univariate(hf_dataset: datasets.Dataset):
 
     return gts_dataset
 
+def to_univariate_custom(hf_dataset: datasets.Dataset):
+    dataset_freq = pd.infer_freq(hf_dataset["datetime"])
+    dataset_freq = offset_alias_to_period_alias.get(dataset_freq, dataset_freq)
+
+    gts_dataset = []
+    gts_dataset.append(
+        {
+            "start": pd.Period(
+                hf_dataset["datetime"][0],
+                freq=dataset_freq,
+            ),
+            "target": hf_dataset['actual'],
+        }
+    )
+
+    assert len(gts_dataset) == 1
+
+    return gts_dataset
+
 
 def load_and_split_dataset(backtest_config: dict):
     hf_repo = backtest_config["hf_repo"]
@@ -209,21 +229,24 @@ def load_and_split_dataset(backtest_config: dict):
     offset = backtest_config["offset"]
     prediction_length = backtest_config["prediction_length"]
     num_rolls = backtest_config["num_rolls"]
+    distance = backtest_config["distance"]
 
     # This is needed because the datasets in autogluon/chronos_datasets_extra cannot
     # be distribued due to license restrictions and must be generated on the fly
     trust_remote_code = True if hf_repo == "autogluon/chronos_datasets_extra" else False
 
-    ds = datasets.load_dataset(
-        hf_repo, dataset_name, split="train", trust_remote_code=trust_remote_code
-    )
+    # ds = datasets.load_dataset(
+    #     hf_repo, dataset_name, split="train", trust_remote_code=trust_remote_code
+    # )
+    ds = datasets.load_dataset("csv", data_files=hf_repo + dataset_name, split="train")
     ds.set_format("numpy")
 
-    gts_dataset = to_gluonts_univariate(ds)
+    # gts_dataset = to_gluonts_univariate(ds)
+    gts_dataset = to_univariate_custom(ds)
 
     # Split dataset for evaluation
-    _, test_template = split(gts_dataset, offset=offset)
-    test_data = test_template.generate_instances(prediction_length, windows=num_rolls)
+    _, test_template = split(gts_dataset, offset=-offset - 3 + 1)
+    test_data = test_template.generate_instances(prediction_length, windows=num_rolls, distance=distance)
 
     return test_data
 
@@ -261,6 +284,40 @@ def generate_sample_forecasts(
     return sample_forecasts
 
 
+def export_forecasts_to_df(
+    test_data_label: Iterable,
+    sample_forecasts: List[SampleForecast],
+    run_type: str,
+    results_path: str
+):
+    means = []
+    dates = []
+    true = []
+
+    label_it = iter(test_data_label)
+
+    num_windows = len(sample_forecasts)
+    assert num_windows > 0
+    pred_len = sample_forecasts[0].prediction_length
+
+    for forecast in sample_forecasts:
+        label = next(label_it)
+
+        true.extend(label['target'])
+        means.extend(forecast.mean)
+        dates.extend(forecast.index.to_timestamp())
+
+    df = pd.DataFrame({
+        'date': dates,
+        'pred': means,
+        'true': true
+    })
+
+    assert df.shape[0] == pred_len * num_windows
+
+    df.to_csv(results_path + f'Chronos_pl{pred_len}_{run_type}.csv')
+
+
 @app.command()
 def main(
     config_path: Path,
@@ -273,17 +330,36 @@ def main(
     temperature: Optional[float] = None,
     top_k: Optional[int] = None,
     top_p: Optional[float] = None,
+    run_type: str = "zero_shot",
+    results_path: str = "results/data/",
+    output_dir: str = "./output/",
 ):
     if isinstance(torch_dtype, str):
         torch_dtype = getattr(torch, torch_dtype)
     assert isinstance(torch_dtype, torch.dtype)
 
     # Load Chronos
-    pipeline = ChronosPipeline.from_pretrained(
-        chronos_model_id,
-        device_map=device,
-        torch_dtype=torch_dtype,
-    )
+    if run_type == 'finetuned':
+        last_checkpoint_path = [d for d in os.listdir(output_dir)
+                                if os.path.isdir(os.path.join(output_dir, d))]
+        last_checkpoint_path.sort()
+        last_checkpoint_path = os.path.join(
+            output_dir, os.path.join(last_checkpoint_path[-1], 'checkpoint-final')
+        )
+        logger.info("Using fine-tuned model from %s", last_checkpoint_path)
+
+        pipeline = ChronosPipeline.from_pretrained(
+            last_checkpoint_path,
+            use_safetensors=True,
+            device_map=device,
+            torch_dtype=torch_dtype,
+        )
+    else:
+        pipeline = ChronosPipeline.from_pretrained(
+            chronos_model_id,
+            device_map=device,
+            torch_dtype=torch_dtype,
+        )
 
     # Load backtest configs
     with open(config_path) as fp:
@@ -293,6 +369,10 @@ def main(
     for config in backtest_configs:
         dataset_name = config["name"]
         prediction_length = config["prediction_length"]
+
+        if run_type == 'zero_shot' and prediction_length > 64:
+            logger.info('Skipping zero_shot evaluation for pred length %d (> 64)', prediction_length)
+            continue
 
         logger.info(f"Loading {dataset_name}")
         test_data = load_and_split_dataset(backtest_config=config)
@@ -312,6 +392,8 @@ def main(
             top_p=top_p,
         )
 
+        export_forecasts_to_df(test_data.label, sample_forecasts, run_type, results_path)
+
         logger.info(f"Evaluating forecasts for {dataset_name}")
         metrics = (
             evaluate_forecasts(
@@ -327,7 +409,7 @@ def main(
             .to_dict(orient="records")
         )
         result_rows.append(
-            {"dataset": dataset_name, "model": chronos_model_id, **metrics[0]}
+            {"dataset": dataset_name + f'(pl{prediction_length})', "model": chronos_model_id, **metrics[0]}
         )
 
     # Save results to a CSV file

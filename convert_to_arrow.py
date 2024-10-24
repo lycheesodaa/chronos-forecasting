@@ -43,11 +43,13 @@ def convert_to_arrow(
 if __name__ == "__main__":
     # Generate 20 random time series of length 1024
     df = pd.read_csv("data/demand_data_all_cleaned_numerical.csv")
-    ts_data = [df['actual'].values]
-    start_times = [df['datetime'][0]]
+    train_data = df[:int(len(df) * 0.6)] # select 60% training data
+
+    ts_data = [train_data['actual'].values]
+    start_times = [train_data['datetime'][0]]
     print(ts_data)
     print(start_times)
 
     # Convert to GluonTS arrow format
-    convert_to_arrow("./data/processed/demand_data_all_cleaned_numerical.arrow",
+    convert_to_arrow("data/processed/demand_sg_train.arrow",
                      time_series=ts_data, start_times=start_times)

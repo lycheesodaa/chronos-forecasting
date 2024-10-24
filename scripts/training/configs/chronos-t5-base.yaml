@@ -1,20 +1,20 @@
 training_data_paths:
-- "/home/ubuntu/tsmixup-data.arrow"
-- "/home/ubuntu/kernelsynth-data.arrow"
+#- "/home/ubuntu/tsmixup-data.arrow"
+#- "/home/ubuntu/kernelsynth-data.arrow"
+- "data/processed/demand_sg_train.arrow"
 probability:
-- 0.9
-- 0.1
+- 1.0
 context_length: 512
 prediction_length: 64
 min_past: 60
 max_steps: 200_000
 save_steps: 100_000
 log_steps: 500
-per_device_train_batch_size: 32
+per_device_train_batch_size: 16
 learning_rate: 0.001
 optim: adamw_torch_fused
 num_samples: 20
-shuffle_buffer_length: 100_000
+shuffle_buffer_length: 10000
 gradient_accumulation_steps: 1
 model_id: google/t5-efficient-base
 model_type: seq2seq
