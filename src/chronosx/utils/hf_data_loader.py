@@ -73,10 +73,29 @@ def load_and_split_dataset(backtest_config: dict):
 
     elif 'synthetic_datasets' in dataset_name:
         ds = datasets.load_from_disk(filename)
-
+    elif 'demand' in dataset_name:
+        df = pd.read_csv(filename)
+        df = df.rename(columns={'datetime': 'timestamp'})
+        df['id'] = dataset_name
+        
+        # Convert to list format, since the ChronosX code requires it this way
+        ts_data = []
+        for id_val, group in df.groupby('id'):
+            ts_entry = {
+                'timestamp': group['timestamp'].values,
+                series_fields: group[series_fields].values.astype(np.float32),
+                'id': np.array([id_val] * len(group)),
+            }
+            # Add other features as needed
+            for col in group.columns:
+                if col not in ['timestamp', series_fields, 'id'] and col in covariates_fields:
+                    ts_entry[col] = group[col].values.astype(np.float32)
+            ts_data.append(ts_entry)
+        
+        ds = datasets.Dataset.from_list(ts_data)
     else:
         ds = datasets.load_dataset(
-            hf_repo, dataset_name, split="train", trust_remote_code=True, revision="v0.1.0"
+            hf_repo, dataset_name, split="train", trust_remote_code=True
         )
 
     ds.set_format("numpy")

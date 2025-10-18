@@ -1,0 +1,56 @@
+# - name: "demand_sg_top0_pl1"
+#   filename: "./data/demand_data_all_cleaned.csv"  # Path to your CSV file
+#   prediction_length: 1  # Adjust based on your needs
+#   offset: -12274  # Offset dataset split for evaluation data
+#   num_rolls: 12273  # Number of rolling windows for evaluation
+#   series_fields: "actual"  # Name of your target column
+#   covariates_fields: ["met", "period", "hour", "tempC", "heatIndexC", "feelsLikeC", "humidity"]
+#   freq: "h"
+- name: "demand_sg_top0_pl12"
+  filename: "./data/demand_data_all_cleaned.csv" 
+  prediction_length: 12 
+  offset: -12274
+  num_rolls: 12262
+  series_fields: "actual" 
+  covariates_fields: ["met", "period", "hour", "tempC", "heatIndexC", "feelsLikeC", "humidity"]
+  freq: "h"
+- name: "demand_sg_top0_pl24"
+  filename: "./data/demand_data_all_cleaned.csv"
+  prediction_length: 24
+  offset: -12274
+  num_rolls: 12250
+  series_fields: "actual"
+  covariates_fields: ["met", "period", "hour", "tempC", "heatIndexC", "feelsLikeC", "humidity"]
+  freq: "h"
+- name: "demand_sg_top0_pl38"
+  filename: "./data/demand_data_all_cleaned.csv"
+  prediction_length: 48
+  offset: -12274
+  num_rolls: 12226
+  series_fields: "actual"
+  covariates_fields: ["met", "period", "hour", "tempC", "heatIndexC", "feelsLikeC", "humidity"]
+  freq: "h"
+- name: "demand_sg_top0_pl72"
+  filename: "./data/demand_data_all_cleaned.csv"
+  prediction_length: 72
+  offset: -12274
+  num_rolls: 12202
+  series_fields: "actual"
+  covariates_fields: ["met", "period", "hour", "tempC", "heatIndexC", "feelsLikeC", "humidity"]
+  freq: "h"
+- name: "demand_sg_top0_pl168"
+  filename: "./data/demand_data_all_cleaned.csv"
+  prediction_length: 168
+  offset: -12274
+  num_rolls: 12106
+  series_fields: "actual"
+  covariates_fields: ["met", "period", "hour", "tempC", "heatIndexC", "feelsLikeC", "humidity"]
+  freq: "h"
+- name: "demand_sg_top0_pl336"
+  filename: "./data/demand_data_all_cleaned.csv"
+  prediction_length: 336
+  offset: -12274
+  num_rolls: 11938
+  series_fields: "actual"
+  covariates_fields: ["met", "period", "hour", "tempC", "heatIndexC", "feelsLikeC", "humidity"]
+  freq: "h"
