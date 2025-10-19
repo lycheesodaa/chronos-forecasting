@@ -19,7 +19,7 @@ from gluonts.model.evaluation import evaluate_forecasts
 
 covariate_injection = "IIB"
 chronos_model_id = "amazon/chronos-t5-small"
-config_path = "./configs/demand_datasets.yaml"
+config_path = "./configs/demand_aus_datasets.yaml"
 output_dir = Path("../../output/finetune")
 output_metrics_dir = Path("../../output/metrics")
 output_metrics_dir.mkdir(exist_ok=True, parents=True)
@@ -42,6 +42,8 @@ for dataset_config in backtest_configs:
     num_covariates = 2 * len(dataset_config["covariates_fields"])
     offset = dataset_config["offset"]
     train_dataset, test_dataset = load_and_split_dataset(backtest_config=dataset_config)
+
+    print("running dataset: ", dataset_name)
 
     # Load Chronos
     pipeline = ChronosXPipeline(
@@ -71,6 +73,7 @@ for dataset_config in backtest_configs:
         mode="validation",
     )
     a = list(quantized_val_dataset)
+    print(len(a[0]))
 
     train_dataset, _ = split(train_dataset, offset=-prediction_length)
     quantized_train_dataset = ChronosDataset(

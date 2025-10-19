@@ -1,52 +1,52 @@
-# - name: ETTh
-#   hf_repo: autogluon/chronos_datasets_extra
-#   offset: -24
-#   prediction_length: 24
-#   num_rolls: 1
-#   covariates_fields: ["HULL", "MUFL", "MULL", "LUFL", "LULL"]
-#   series_fields: "OT"
-# - name: ETTm
-#   hf_repo: autogluon/chronos_datasets_extra
-#   offset: -24
-#   prediction_length: 24
-#   num_rolls: 1
-#   covariates_fields: ["HULL", "MUFL", "MULL", "LUFL", "LULL"]
-#   series_fields: "OT"
-# - name: epf_electricity_be_paper
-#   hf_repo: autogluon/fev_datasets
-#   offset: -24
-#   prediction_length: 24
-#   num_rolls: 1
-#   covariates_fields: ['exogenous1', 'exogenous2']
-#   series_fields: "target"
-# - name: epf_electricity_de_paper
-#   hf_repo: autogluon/fev_datasets
-#   offset: -24
-#   prediction_length: 24
-#   num_rolls: 1
-#   covariates_fields: ['exogenous1', 'exogenous2']
-#   series_fields: "target"
-# - name: epf_electricity_fr_paper
-#   hf_repo: autogluon/fev_datasets
-#   offset: -24
-#   prediction_length: 24
-#   num_rolls: 1
-#   covariates_fields: ['exogenous1', 'exogenous2']
-#   series_fields: "target"
-# - name: epf_electricity_np_paper
-#   hf_repo: autogluon/fev_datasets
-#   offset: -24
-#   prediction_length: 24
-#   num_rolls: 1
-#   covariates_fields: ['exogenous1', 'exogenous2']
-#   series_fields: "target"
-# - name: epf_electricity_pjm_paper
-#   hf_repo: autogluon/fev_datasets
-#   offset: -24
-#   prediction_length: 24
-#   num_rolls: 1
-#   covariates_fields: ['exogenous1', 'exogenous2']
-#   series_fields: "target"
+- name: ETTh
+  hf_repo: autogluon/chronos_datasets_extra
+  offset: -24
+  prediction_length: 24
+  num_rolls: 1
+  covariates_fields: ["HULL", "MUFL", "MULL", "LUFL", "LULL"]
+  series_fields: "OT"
+- name: ETTm
+  hf_repo: autogluon/chronos_datasets_extra
+  offset: -24
+  prediction_length: 24
+  num_rolls: 1
+  covariates_fields: ["HULL", "MUFL", "MULL", "LUFL", "LULL"]
+  series_fields: "OT"
+- name: epf_electricity_be_paper
+  hf_repo: autogluon/fev_datasets
+  offset: -24
+  prediction_length: 24
+  num_rolls: 1
+  covariates_fields: ['exogenous1', 'exogenous2']
+  series_fields: "target"
+- name: epf_electricity_de_paper
+  hf_repo: autogluon/fev_datasets
+  offset: -24
+  prediction_length: 24
+  num_rolls: 1
+  covariates_fields: ['exogenous1', 'exogenous2']
+  series_fields: "target"
+- name: epf_electricity_fr_paper
+  hf_repo: autogluon/fev_datasets
+  offset: -24
+  prediction_length: 24
+  num_rolls: 1
+  covariates_fields: ['exogenous1', 'exogenous2']
+  series_fields: "target"
+- name: epf_electricity_np_paper
+  hf_repo: autogluon/fev_datasets
+  offset: -24
+  prediction_length: 24
+  num_rolls: 1
+  covariates_fields: ['exogenous1', 'exogenous2']
+  series_fields: "target"
+- name: epf_electricity_pjm_paper
+  hf_repo: autogluon/fev_datasets
+  offset: -24
+  prediction_length: 24
+  num_rolls: 1
+  covariates_fields: ['exogenous1', 'exogenous2']
+  series_fields: "target"
 - name: proenfo_bull
   hf_repo: autogluon/fev_datasets
   offset: -24

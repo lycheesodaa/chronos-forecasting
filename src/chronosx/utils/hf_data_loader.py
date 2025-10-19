@@ -106,6 +106,6 @@ def load_and_split_dataset(backtest_config: dict):
 
     # Split dataset for evaluation
     train_dataset, test_template = split(gts_dataset, offset=offset)
-    test_data = test_template.generate_instances(prediction_length, windows=num_rolls)
+    test_data = test_template.generate_instances(prediction_length, windows=num_rolls, distance=1)
 
     return train_dataset, test_data

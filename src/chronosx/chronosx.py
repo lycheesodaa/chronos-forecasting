@@ -16,6 +16,8 @@ from transformers import (
     T5ForConditionalGeneration,
     Trainer,
     TrainingArguments,
+    GenerationConfig,
+    EarlyStoppingCallback,
 )
 from typing import Any, Dict, Optional
 
@@ -466,23 +468,23 @@ class ChronosXPipeline(ChronosPipeline):
     def train(
         self,
         output_dir=Path(__file__).parent / "output" / "group0" / "finetune",
-        per_device_train_batch_size=32,
+        per_device_train_batch_size=16,
         learning_rate=0.01,
         lr_scheduler_type="linear",
         warmup_ratio=0.0,
         optim="adamw_torch_fused",
-        log_steps=20,
+        log_steps=100,
         save_steps=100,
         max_steps=5000,
-        gradient_accumulation_steps=2,
-        dataloader_num_workers=1,
+        gradient_accumulation_steps=1,
+        dataloader_num_workers=0,
         tf32=False,
         torch_compile=0,
         eval_steps=100,
-        per_device_eval_batch_size=8,
-        eval_accumulation_steps=4,
+        per_device_eval_batch_size=16,
+        eval_accumulation_steps=1,
         load_best_model_at_end=True,
-        save_total_limit=5,
+        save_total_limit=2,
         quantized_train_dataset=None,
         quantized_val_dataset=None,
         seed=None,
@@ -524,15 +526,22 @@ class ChronosXPipeline(ChronosPipeline):
         # Create Trainer instance
         if quantized_val_dataset is None:
             training_args.eval_strategy = "no"
+            callbacks = None
+        else:
+            # Add early stopping callback
+            early_stopping = EarlyStoppingCallback(
+                early_stopping_patience=10,
+                early_stopping_threshold=0.0,
+            )
+            callbacks = [early_stopping]
 
         trainer = Trainer(
             model=self.chronosx,
             args=training_args,
             train_dataset=quantized_train_dataset,
-            eval_dataset=(
-                {"val": quantized_val_dataset} if quantized_val_dataset else None
-            ),
+            eval_dataset={"val": quantized_val_dataset} if quantized_val_dataset else None,
             compute_metrics=compute_metrics,
+            callbacks=callbacks,
         )
 
         # prepare training for finetuning
@@ -578,10 +587,10 @@ class ChronosXPipeline(ChronosPipeline):
 
         prepared_covariates = [prepare_covariates(entry) for entry in covariates]
         future_covariates = torch.tensor(
-            [entry["future_covariates"] for entry in prepared_covariates]
+            np.array([entry["future_covariates"] for entry in prepared_covariates])
         )
         past_covariates = torch.tensor(
-            [entry["past_covariates"] for entry in prepared_covariates]
+            np.array([entry["past_covariates"] for entry in prepared_covariates])
         )
 
         preds = self.chronosx.generate(
@@ -659,7 +668,7 @@ class ChronosXPipeline(ChronosPipeline):
     def generate_forecasts(
         self,
         test_data_input,
-        batch_size=32,
+        batch_size=16,
         context_length=512,
     ):
 
