@@ -9,12 +9,9 @@ import json
 
 from chronosx.chronosx import ChronosXPipeline
 from chronosx.utils.chronos_dataset import ChronosDataset
-from chronosx.utils.hf_data_loader import load_and_split_dataset
+from chronosx.utils.hf_data_loader import load_and_split_dataset, split_train_val
 from chronosx.utils.utils import has_enough_observations
-from functools import partial
-from gluonts.dataset.split import split
 from gluonts.ev.metrics import MASE, MeanWeightedSumQuantileLoss, MAPE
-from gluonts.itertools import Filter
 from gluonts.model.evaluation import evaluate_forecasts
 
 covariate_injection = "IIB"
@@ -43,6 +40,8 @@ for dataset_config in backtest_configs:
     offset = dataset_config["offset"]
     train_dataset, test_dataset = load_and_split_dataset(backtest_config=dataset_config)
 
+    print("running dataset: ", dataset_name)
+    
     # Load Chronos
     pipeline = ChronosXPipeline(
         prediction_length=prediction_length,
@@ -53,41 +52,16 @@ for dataset_config in backtest_configs:
 
     tokenizer = pipeline.tokenizer
 
-    train_dataset = Filter(
-        partial(
-            has_enough_observations,
-            min_length=min_past + 2 * prediction_length,  # for validation and for train
-            max_missing_prop=0.5,
-        ),
-        train_dataset,
-    )
+    train_dataset, val_dataset = split_train_val(train_dataset, val_ratio=0.25)
 
     quantized_val_dataset = ChronosDataset(
-        datasets=[train_dataset],
+        datasets=[val_dataset],
         probabilities=[1.0],
         tokenizer=tokenizer,
         prediction_length=prediction_length,
         min_past=min_past,
         mode="validation",
     )
-    a = list(quantized_val_dataset)
-
-    train_dataset, _ = split(train_dataset, offset=-prediction_length)
-    quantized_train_dataset = ChronosDataset(
-        datasets=[train_dataset],
-        probabilities=[1.0],
-        tokenizer=tokenizer,
-        prediction_length=prediction_length,
-        min_past=min_past,
-        mode="training",
-    ).shuffle(shuffle_buffer_length=shuffle_buffer_length)
-
-    # zero-shot evaluation on validation set
-    # val_of_zero_shot_pretrained_model = pipeline.evaluate_model_on_validation_set(
-    #     covariate_injection=None,
-    #     quantized_val_dataset=quantized_val_dataset,
-    #     output_dir=output_dir / dataset_name,
-    # )
 
     random.seed(int(time.time()))
     seed = random.randint(0, 2**32)
@@ -218,6 +192,3 @@ for dataset_config in backtest_configs:
     df = df.set_index(["dataset", "covariate_injection"])
     pprint(df.mean())
     df.to_csv(output_metrics_dir / f"{dataset_name}_max_steps={max_steps}.csv")
-
-from aggregate_metrics import aggregate_metrics
-aggregate_metrics(output_metrics_dir)

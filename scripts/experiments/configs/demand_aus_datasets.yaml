@@ -1,110 +1,110 @@
-# # demand aus hourly featsel
-# - name: "demand_aus_hourly_feat_pl1"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 1
-#   offset: -15777
-#   num_rolls: 15776
-#   series_fields: "actual"
-#   covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
-#   freq: "h"
-# - name: "demand_aus_hourly_feat_pl12"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 12
-#   offset: -15777
-#   num_rolls: 15765
-#   series_fields: "actual"
-#   covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
-#   freq: "h"
-# - name: "demand_aus_hourly_feat_pl24"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 24
-#   offset: -15777
-#   num_rolls: 15753
-#   series_fields: "actual"
-#   covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
-#   freq: "h"
-# - name: "demand_aus_hourly_feat_pl48"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 48
-#   offset: -15777
-#   num_rolls: 15729
-#   series_fields: "actual"
-#   covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
-#   freq: "h"
-# - name: "demand_aus_hourly_feat_pl72"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 72
-#   offset: -15777
-#   num_rolls: 15705
-#   series_fields: "actual"
-#   covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
-#   freq: "h"
-# - name: "demand_aus_hourly_feat_pl168"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 168
-#   offset: -15777
-#   num_rolls: 15609
-#   series_fields: "actual"
-#   covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
-#   freq: "h"
-# - name: "demand_aus_hourly_feat_pl336"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 336
-#   offset: -15777
-#   num_rolls: 15441
-#   series_fields: "actual"
-#   covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
-#   freq: "h"
+# demand aus hourly featsel
+- name: "demand_aus_hourly_feat_pl1"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 1
+  offset: -15777
+  num_rolls: 15776
+  series_fields: "actual"
+  covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
+  freq: "h"
+- name: "demand_aus_hourly_feat_pl12"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 12
+  offset: -15777
+  num_rolls: 15765
+  series_fields: "actual"
+  covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
+  freq: "h"
+- name: "demand_aus_hourly_feat_pl24"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 24
+  offset: -15777
+  num_rolls: 15753
+  series_fields: "actual"
+  covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
+  freq: "h"
+- name: "demand_aus_hourly_feat_pl48"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 48
+  offset: -15777
+  num_rolls: 15729
+  series_fields: "actual"
+  covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
+  freq: "h"
+- name: "demand_aus_hourly_feat_pl72"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 72
+  offset: -15777
+  num_rolls: 15705
+  series_fields: "actual"
+  covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
+  freq: "h"
+- name: "demand_aus_hourly_feat_pl168"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 168
+  offset: -15777
+  num_rolls: 15609
+  series_fields: "actual"
+  covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
+  freq: "h"
+- name: "demand_aus_hourly_feat_pl336"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 336
+  offset: -15777
+  num_rolls: 15441
+  series_fields: "actual"
+  covariates_fields: ["price", "hour", "period", "is_weekend", "humidity", "uvIndex", "tempC", "heatIndexC", "feelsLikeC", "visibility"]
+  freq: "h"
 
-# # demand aus hourly
-# - name: "demand_aus_hourly_all_pl1"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 1
-#   offset: -15777
-#   num_rolls: 15776
-#   series_fields: "actual"
-#   covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
-#   freq: "h"
-# - name: "demand_aus_hourly_all_pl12"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 12
-#   offset: -15777
-#   num_rolls: 15765
-#   series_fields: "actual"
-#   covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
-#   freq: "h"
-# - name: "demand_aus_hourly_all_pl24"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 24
-#   offset: -15777
-#   num_rolls: 15753
-#   series_fields: "actual"
-#   covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
-#   freq: "h"
-# - name: "demand_aus_hourly_all_pl48"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 48
-#   offset: -15777
-#   num_rolls: 15729
-#   series_fields: "actual"
-#   covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
-#   freq: "h"
-# - name: "demand_aus_hourly_all_pl72"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 72
-#   offset: -15777
-#   num_rolls: 15705
-#   series_fields: "actual"
-#   covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
-#   freq: "h"
-# - name: "demand_aus_hourly_all_pl168"
-#   filename: "./data/demand_data_all_nsw.csv"
-#   prediction_length: 168
-#   offset: -15777
-#   num_rolls: 15609
-#   series_fields: "actual"
-#   covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
-#   freq: "h"
+# demand aus hourly
+- name: "demand_aus_hourly_all_pl1"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 1
+  offset: -15777
+  num_rolls: 15776
+  series_fields: "actual"
+  covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
+  freq: "h"
+- name: "demand_aus_hourly_all_pl12"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 12
+  offset: -15777
+  num_rolls: 15765
+  series_fields: "actual"
+  covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
+  freq: "h"
+- name: "demand_aus_hourly_all_pl24"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 24
+  offset: -15777
+  num_rolls: 15753
+  series_fields: "actual"
+  covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
+  freq: "h"
+- name: "demand_aus_hourly_all_pl48"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 48
+  offset: -15777
+  num_rolls: 15729
+  series_fields: "actual"
+  covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
+  freq: "h"
+- name: "demand_aus_hourly_all_pl72"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 72
+  offset: -15777
+  num_rolls: 15705
+  series_fields: "actual"
+  covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
+  freq: "h"
+- name: "demand_aus_hourly_all_pl168"
+  filename: "./data/demand_data_all_nsw.csv"
+  prediction_length: 168
+  offset: -15777
+  num_rolls: 15609
+  series_fields: "actual"
+  covariates_fields: ["price", "year", "month", "day", "hour", "period", "day_of_week", "is_weekend", "humidity", "tempC", "heatIndexC", "precipMM", "windspeedKmph", "winddirDegree", "windGustKmph", "weatherDesc", "visibility", "pressure", "cloudcover", "dewPointC", "uvIndex", "feelsLikeC", "civic_aqi", "florey_aqi", "monash_aqi", "aggregate_aqi"]
+  freq: "h"
 - name: "demand_aus_hourly_all_pl336"
   filename: "./data/demand_data_all_nsw.csv"
   prediction_length: 336
