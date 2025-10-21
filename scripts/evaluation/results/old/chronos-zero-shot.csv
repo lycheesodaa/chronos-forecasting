@@ -1,0 +1,7 @@
+dataset,model,MASE,WQL
+demand_data_all_cleaned_numerical_daily.csv(pl1),amazon/chronos-t5-base,0.42023058674217917,0.010245142970791344
+demand_data_all_cleaned_numerical_daily.csv(pl14),amazon/chronos-t5-base,0.5957244333368071,0.014487910068728975
+demand_data_all_cleaned_numerical_daily.csv(pl3),amazon/chronos-t5-base,0.4895645178479295,0.012089884849688811
+demand_data_all_cleaned_numerical_daily.csv(pl30),amazon/chronos-t5-base,0.6226920409959495,0.015140135710079891
+demand_data_all_cleaned_numerical_daily.csv(pl60),amazon/chronos-t5-base,0.632640769891004,0.015541398982827227
+demand_data_all_cleaned_numerical_daily.csv(pl7),amazon/chronos-t5-base,0.550288762102663,0.013502941191924495

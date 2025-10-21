@@ -10,7 +10,7 @@ import torch
 import typer
 import yaml
 from gluonts.dataset.split import split
-from gluonts.ev.metrics import MASE, MeanWeightedSumQuantileLoss
+from gluonts.ev.metrics import MASE, MeanWeightedSumQuantileLoss, MAPE
 from gluonts.itertools import batcher
 from gluonts.model.evaluation import evaluate_forecasts
 from gluonts.model.forecast import SampleForecast
@@ -315,6 +315,9 @@ def export_forecasts_to_df(
 
     assert df.shape[0] == pred_len * num_windows
 
+    if not os.path.exists(results_path):
+        os.mkdir(results_path)
+
     df.to_csv(results_path + f'Chronos_pl{pred_len}_{run_type}.csv')
 
 
@@ -331,8 +334,8 @@ def main(
     top_k: Optional[int] = None,
     top_p: Optional[float] = None,
     run_type: str = "zero_shot",
-    results_path: str = "results/data/",
     output_dir: str = "./output/",
+    results_path: str = "./results/",
 ):
     if isinstance(torch_dtype, str):
         torch_dtype = getattr(torch, torch_dtype)
@@ -402,6 +405,7 @@ def main(
                 metrics=[
                     MASE(),
                     MeanWeightedSumQuantileLoss(np.arange(0.1, 1.0, 0.1)),
+                    MAPE(),
                 ],
                 batch_size=5000,
             )
@@ -416,7 +420,7 @@ def main(
     results_df = (
         pd.DataFrame(result_rows)
         .rename(
-            {"MASE[0.5]": "MASE", "mean_weighted_sum_quantile_loss": "WQL"},
+            {"MASE[0.5]": "MASE", "mean_weighted_sum_quantile_loss": "WQL","MAPE[0.5]": "MAPE"},
             axis="columns",
         )
         .sort_values(by="dataset")

@@ -1,0 +1,6 @@
+dataset,model,MASE,WQL,MAPE
+demand_data_all_nsw_daily.csv(pl1),amazon/chronos-t5-small,0.6911158905083441,0.026534475054123256,0.03367707496736108
+demand_data_all_nsw_daily.csv(pl14),amazon/chronos-t5-small,0.9545032414908214,0.03626618706263552,0.046419806015329926
+demand_data_all_nsw_daily.csv(pl30),amazon/chronos-t5-small,1.0332198975774196,0.03906994726434491,0.05033248422755516
+demand_data_all_nsw_daily.csv(pl60),amazon/chronos-t5-small,1.1913274844923079,0.044476500133526164,0.05806336778292504
+demand_data_all_nsw_daily.csv(pl7),amazon/chronos-t5-small,0.9087259883885426,0.034726396357095506,0.044340877323360235

@@ -1,5 +1,9 @@
 Adapted from https://github.com/amazon-science/chronos-forecasting/tree/main/scripts
 
+Steps:
+- Convert to the required training dataset format (CSV -> arrow) using `convert_to_arrow.py`, changing the variable names accordingly.
+- Run `demand_forecasting.sh` with your desired configuration variables.
+
 ---
 # Usage Examples
 
